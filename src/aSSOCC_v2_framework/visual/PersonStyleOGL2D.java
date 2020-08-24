@@ -18,7 +18,7 @@ public class PersonStyleOGL2D extends DefaultStyleOGL2D {
 				return shapeFactory.createCircle(Constants.visAgentRadiusDistance, 12);
 			}
 			else {
-				return shapeFactory.createCircle(Constants.visAgentRadiusNoDistance, 12);
+				return shapeFactory.createRectangle(Constants.visAgentRadiusNoDistance, Constants.visAgentRadiusNoDistance);
 			}
 		}
 		return shapeFactory.createCircle(4, 12);
@@ -29,8 +29,8 @@ public class PersonStyleOGL2D extends DefaultStyleOGL2D {
 		
 		if (agent instanceof Person) {
 			final Person person = (Person) agent;
-			if (person.getSocialDistancing()) {
-				return new Color(0x00, 0x00, 0xFF);
+			if (person.isSick()) {
+				return new Color(0xFF, 0x00, 0x00);
 			}
 			else {
 				return new Color(0x00, 0xFF, 0x00);

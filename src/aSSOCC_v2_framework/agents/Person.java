@@ -13,22 +13,30 @@ import repast.simphony.space.grid.GridPoint;
 public class Person {
 
 	private int id;
+	private int stay;
+	private boolean sick;
 	private boolean socialDistancing;
+	
 	HashMap<String, GatheringPoint> myGatheringPoints = new HashMap<String, GatheringPoint>();
 	String currentGpName;
-	
-	private int stay;
+	private AgentContext myContext;
 	
 	public Person(int id) {
 		
 		this.id = id;
-		this.socialDistancing = false;
+		stay = 0;
+		sick = false;
+		socialDistancing = false;
+		
+		
 		SU.getContext().add(this);
 		
 		myGatheringPoints.put("Shop", SU.getOneObjectAllRandom(Shop.class));
 		myGatheringPoints.put("Home", SU.getOneObjectAllRandom(House.class));
 		
 		moveToGatheringPoint("Home");
+		
+		myContext = new AgentContext();
 	}
 	
 	public void step() {
@@ -61,7 +69,7 @@ public class Person {
 			Logger.logError("Error in Person " + id + " no gp with name '" + gpName + "' found.");
 		}
 		
-		GridPoint gpLocation = myGatheringPoints.get(gpName).getLocation();
+		GridPoint gpLocation = myGatheringPoints.get(gpName).getRandomLocationOnGP();
 
 		if (!SU.getGrid().moveTo(this, gpLocation.getX(), gpLocation.getY())) {
 			Logger.logError("Person " + id + " could not be placed, coordinate: " + gpLocation);
@@ -81,5 +89,9 @@ public class Person {
 	
 	public int getId() {
 		return id;
+	}
+	
+	public boolean isSick() {
+		return sick;
 	}
 }

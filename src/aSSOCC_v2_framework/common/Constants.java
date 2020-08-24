@@ -15,6 +15,6 @@ public final class Constants {
 	public static final int ticksStayGrocery = 3;
 	
 	// Visualization
-	public static final int visAgentRadiusNoDistance = 6;
-	public static final int visAgentRadiusDistance = 3;
+	public static final int visAgentRadiusNoDistance = 14;
+	public static final int visAgentRadiusDistance = 4;
 }

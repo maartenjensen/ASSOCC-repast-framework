@@ -22,6 +22,6 @@ public class GatheringPointStyleOGL2D extends DefaultStyleOGL2D {
 
 	@Override
 	public Color getColor(final Object agent) {
-		return new Color(0xE4, 0xC8, 0xA0);
+		return new Color(0xFF, 0xF4, 0xD1);
 	}
 }

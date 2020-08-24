@@ -2,6 +2,7 @@ package aSSOCC_v2_framework.environment;
 
 import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.common.SU;
+import repast.simphony.random.RandomHelper;
 import repast.simphony.space.grid.GridPoint;
 
 public class GatheringPoint {
@@ -39,6 +40,19 @@ public class GatheringPoint {
 	
 	public GridPoint getLocation() {
 		return location;
+	}
+	
+	/**
+	 * TODO: Make a function like this but while excluding locations that have a person on them
+	 * @return
+	 */
+	public GridPoint getRandomLocationOnGP() {
+		
+		int halfWidth  = (width - 1) / 2;
+		int halfHeight = (height - 1) / 2;
+		int xPos = RandomHelper.nextIntFromTo(location.getX() - halfWidth, location.getX() + halfWidth);
+		int yPos = RandomHelper.nextIntFromTo(location.getY() - halfHeight, location.getY() + halfHeight);
+		return new GridPoint(xPos, yPos);
 	}
 	
 	public void moveTo(GridPoint location) {

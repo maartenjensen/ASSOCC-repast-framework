@@ -40,4 +40,10 @@ public class GatheringPoint {
 	public GridPoint getLocation() {
 		return location;
 	}
+	
+	public void moveTo(GridPoint location) {
+		if (!SU.getGrid().moveTo(this, location.getX(), location.getY())) {
+			Logger.logError("GatheringPoint could not be placed, coordinate: " + location);
+		}
+	}
 }

@@ -71,6 +71,18 @@ public final class SU {
 	}
 	
 	/**
+	 * Returns true if the random double is smaller or equal to the given probability
+	 * @param probability
+	 * @return
+	 */
+	public static boolean getProbTrue(float probability) {
+		if (RandomHelper.nextDouble() <= probability) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * Gets master context since I don't use the sub-contexts
 	 * @return Context the master context
 	 */
@@ -159,5 +171,17 @@ public final class SU {
 		ArrayList<T> objectList = getObjectsAllExcluded(clazz, excludedObject);
 		SimUtilities.shuffle(objectList, RandomHelper.getUniform());
 		return objectList;
+	}
+	
+	/**
+	 * Retrieves one object at random given the class
+	 * @param clazz (e.g. use as input Human.class)
+	 * @return 
+	 * @return an ArrayList of objects from the given class
+	 */
+	public static <T> T getOneObjectAllRandom(Class<T> clazz) {
+		
+		ArrayList<T> objectList = getObjectsAll(clazz);
+		return objectList.get(RandomHelper.nextIntFromTo(0, objectList.size() - 1));
 	}
 }

@@ -1,11 +1,10 @@
 package aSSOCC_v2_framework;
 
-import java.util.ArrayList;
-
 import aSSOCC_v2_framework.agents.Person;
 import aSSOCC_v2_framework.common.Constants;
 import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.common.SU;
+import aSSOCC_v2_framework.environment.GatheringPoint;
 import aSSOCC_v2_framework.environment.House;
 import aSSOCC_v2_framework.environment.Shop;
 import repast.simphony.context.Context;
@@ -15,7 +14,6 @@ import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.parameter.Parameters;
-import repast.simphony.random.RandomHelper;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.continuous.NdPoint;
 import repast.simphony.space.continuous.RandomCartesianAdder;
@@ -25,9 +23,10 @@ import repast.simphony.space.grid.GridPoint;
 import repast.simphony.space.grid.SimpleGridAdder;
 
 public class TownContextBuilder implements ContextBuilder<Object> {
-
+	
 	@Override
 	public Context<Object> build(Context<Object> context) {
+		
 		context.setId(Constants.ID_CONTEXT);
 		context.add(this); //this can be removed if there is no ScheduledMethod in this contextbuilder
 		
@@ -42,6 +41,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 			RunEnvironment.getInstance().endAt(20);
 		}
 
+		moveGatheringPoints();
 		return context;
 	}
 	
@@ -50,9 +50,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 		
 		Logger.logMain("Main step");
 		
-		// Make one person change the social distancing at random (just for testing)
-		ArrayList<Person> randomPersons = SU.getObjectsAllRandom(Person.class);
-		randomPersons.get(RandomHelper.nextIntFromTo(0, randomPersons.size() - 1)).randomSocialDistancing();
+		SU.getObjectsAllRandom(Person.class).forEach(a -> a.step());
 	}
 	
 	/**
@@ -64,10 +62,11 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 		Parameters params = RunEnvironment.getInstance().getParameters();
 		int houseCount = (Integer) params.getValue("house_count");
 		for (int i = 0; i < houseCount; i++) {
-			new House(SU.getNewGatheringPointId(), new GridPoint(2, 2 + i * 5), 5, 5);
+			House tHouse = new House(SU.getNewGatheringPointId(), new GridPoint(5, 5 + i * 9), 7, 7);
+			tHouse.moveTo(tHouse.getLocation());
 		}
 		
-		new Shop(SU.getNewGatheringPointId(), new GridPoint(30, 25), 15, 15);
+		new Shop(SU.getNewGatheringPointId(), new GridPoint(30,30), 21, 21);
 		
 		int personCount = (Integer) params.getValue("person_count");
 		for (int i = 0; i < personCount; i++) {
@@ -79,6 +78,18 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 			SU.getGrid().moveTo(obj, (int) pt.getX(), (int) pt.getY());
 		}
 	}
+	
+	/**
+	 * This function exists to fix a bug where the houses and shop are not
+	 * properly moved in the context creation function
+	 * @return
+	 */
+	private void moveGatheringPoints() {
+		
+		SU.getObjectsAll(GatheringPoint.class).forEach(g -> g.moveTo(g.getLocation()));
+		SU.getObjectsAll(Person.class).forEach(p -> p.moveToGatheringPoint("Home"));
+	}
+	
 	
 	private ContinuousSpace<Object> createContinuousSpace(final Context<Object> context) {
 		

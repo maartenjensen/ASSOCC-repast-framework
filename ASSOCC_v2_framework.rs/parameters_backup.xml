@@ -13,9 +13,15 @@
 									
 		/>
 				<parameter name="person_count" displayName="Person count" type="int" 
-						defaultValue="0" 
+						defaultValue="20" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
+				<parameter name="corona_exists" displayName="Corona Exists" type="boolean" 
+						defaultValue="false" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$BooleanConverter"
 									
 		/>
 		</parameters>

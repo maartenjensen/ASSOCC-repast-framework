@@ -5,11 +5,17 @@ import repast.simphony.engine.environment.RunEnvironment;
 public class Logger {
 
 	private static boolean logMain = true;
+	private static boolean logAgent = true;
 	private static boolean logErrors = true;
 	
 	public static void logMain(String output) {
 		if (logMain)
 			System.out.println(output);
+	}
+	
+	public static void logAgent(int id, String output) {
+		if (logAgent)
+			System.out.println(" " + id + ": " + output);
 	}
 	
 	public static void logError(String error) {

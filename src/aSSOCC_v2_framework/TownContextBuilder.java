@@ -48,7 +48,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 	@ScheduledMethod(start = 1, interval = 1, priority = 0)
 	public void mainStep() {
 		
-		Logger.logMain("Main step");
+		Logger.logMain("-------------------------- [ Main step ] --------------------------");
 		
 		SU.getObjectsAllRandom(Person.class).forEach(a -> a.step());
 	}

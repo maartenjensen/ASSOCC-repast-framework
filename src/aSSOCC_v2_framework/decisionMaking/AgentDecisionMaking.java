@@ -35,15 +35,18 @@ public class AgentDecisionMaking {
 		
 		if (mostFrequentAction != null && SU.getProbTrue(Math.min(familiarity, 0.95f))) { //TODO check if possibleActions contains mostFrequentAction
 			Logger.logAgent(agentId, "[Repetition]" + mostFrequentAction.toString());
+			SU.getDataCollector().addActionRepeat();
 			return mostFrequentAction;
 		}
 		else if (possibleActions.size() > 0) { //Action is now selected at random
 			if (SU.getProbTrue(0.5f)) {
 				Logger.logAgent(agentId, "[Imitation NOT implemented]");
+				SU.getDataCollector().addActionImitate();
 				return possibleActions.get(RandomHelper.nextIntFromTo(0, possibleActions.size() - 1));
 			}
 			else {
 				Logger.logAgent(agentId, "[Rational choice]");
+				SU.getDataCollector().addActionRational();
 				if (RepastParam.getCoronaExistsContext()) { //TODO implement this better and dependent on possibleActions
 					return new ActionSocialDistance();
 				}

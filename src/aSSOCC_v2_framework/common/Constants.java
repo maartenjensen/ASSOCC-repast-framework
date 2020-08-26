@@ -14,6 +14,9 @@ public final class Constants {
 	public static final int ticksStayHome = 5;
 	public static final int ticksStayGrocery = 3;
 	
+	// Decision framework specific
+	public static final int imitateNumberOfPeople = 5;
+	
 	// Visualization
 	public static final int visAgentRadiusNoDistance = 14;
 	public static final int visAgentRadiusDistance = 4;

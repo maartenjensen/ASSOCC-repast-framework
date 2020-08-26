@@ -35,6 +35,9 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 		createContinuousSpace(context);
 		createGrid(context);
 
+		DataCollector dataCollector = new DataCollector(context);
+		SU.setDataCollector(dataCollector);
+		
 		CreateWorld();
 		
 		if (RunEnvironment.getInstance().isBatch()) {

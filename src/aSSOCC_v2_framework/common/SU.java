@@ -3,6 +3,7 @@ package aSSOCC_v2_framework.common;
 import java.util.ArrayList;
 import java.util.Random;
 
+import aSSOCC_v2_framework.DataCollector;
 import aSSOCC_v2_framework.agents.Person;
 import repast.simphony.context.Context;
 import repast.simphony.random.RandomHelper;
@@ -24,6 +25,15 @@ public final class SU {
 	private static int newPersonId = 0;
 	private static int newGatheringPointId = 0;
 	
+	private static DataCollector dataCollector = null;
+	
+	public static void setDataCollector(DataCollector dataCollector) {
+		SU.dataCollector = dataCollector;
+	}
+	
+	public static DataCollector getDataCollector() {
+		return dataCollector;
+	}
 	
 	/**
 	 * This returns a new Id. ++ is used after the variable to make sure

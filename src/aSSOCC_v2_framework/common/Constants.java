@@ -10,14 +10,11 @@ public final class Constants {
 	public static final int GRID_CELL_SIZE = 15;
 	
 	// Simulation specific
-	public static final float probGoToGrocery = 0.1f;
-	public static final int ticksStayHome = 5;
-	public static final int ticksStayGrocery = 3;
-	
-	// Decision framework specific
-	public static final int imitateNumberOfPeople = 5;
+	public static final float PROB_GO_TO_GROCERY = 0.1f;
+	public static final int TICKS_STAY_HOME = 5;
+	public static final int TICKS_STAY_GROCERY = 3;
 	
 	// Visualization
-	public static final int visAgentRadiusNoDistance = 14;
-	public static final int visAgentRadiusDistance = 4;
+	public static final int VIS_AGENT_RADIUS_NO_DISTANCE = 14;
+	public static final int VIS_AGENT_RADIUS_DISTANCE = 4;
 }

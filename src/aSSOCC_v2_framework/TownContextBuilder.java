@@ -51,10 +51,17 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 	@ScheduledMethod(start = 1, interval = 1, priority = 0)
 	public void mainStep() {
 		
+		SU.getDataCollector().resetTemporaryVariables();
+		
 		Logger.logMain("-------------------------- [ Main step ] --------------------------");
 		
 		SU.getObjectsAllRandom(Person.class).forEach(a -> a.step());
 	}
+	
+	//@ScheduledMethod(start = 1, interval = 0.25, priority = 0)
+	//public void smallSteps() {
+	//	Logger.logMain("-------------------------- [ Small step ] --------------------------");
+	//}
 	
 	/**
 	 * Spawn houses, supermarket, persons and context and move them to 
@@ -92,7 +99,6 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 		SU.getObjectsAll(GatheringPoint.class).forEach(g -> g.moveTo(g.getLocation()));
 		SU.getObjectsAll(Person.class).forEach(p -> p.moveToGatheringPoint("Home"));
 	}
-	
 	
 	private ContinuousSpace<Object> createContinuousSpace(final Context<Object> context) {
 		

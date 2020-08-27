@@ -15,10 +15,10 @@ public class PersonStyleOGL2D extends DefaultStyleOGL2D {
 		if (agent instanceof Person) {
 			final Person person = (Person) agent;
 			if (person.getSocialDistancing()) {
-				return shapeFactory.createCircle(Constants.visAgentRadiusDistance, 12);
+				return shapeFactory.createCircle(Constants.VIS_AGENT_RADIUS_DISTANCE, 12);
 			}
 			else {
-				return shapeFactory.createRectangle(Constants.visAgentRadiusNoDistance, Constants.visAgentRadiusNoDistance);
+				return shapeFactory.createRectangle(Constants.VIS_AGENT_RADIUS_NO_DISTANCE, Constants.VIS_AGENT_RADIUS_NO_DISTANCE);
 			}
 		}
 		return shapeFactory.createCircle(4, 12);

@@ -7,11 +7,11 @@ import aSSOCC_v2_framework.common.Constants;
 import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.common.RepastParam;
 import aSSOCC_v2_framework.common.SU;
-import aSSOCC_v2_framework.decisionMaking.Action;
-import aSSOCC_v2_framework.decisionMaking.ActionNoSocialDistance;
-import aSSOCC_v2_framework.decisionMaking.ActionSocialDistance;
 import aSSOCC_v2_framework.decisionMaking.AgentContext;
 import aSSOCC_v2_framework.decisionMaking.AgentDecisionMaking;
+import aSSOCC_v2_framework.decisionMaking.Actions.Action;
+import aSSOCC_v2_framework.decisionMaking.Actions.ActionNoSocialDistance;
+import aSSOCC_v2_framework.decisionMaking.Actions.ActionSocialDistance;
 import aSSOCC_v2_framework.environment.GatheringPoint;
 import aSSOCC_v2_framework.environment.House;
 import aSSOCC_v2_framework.environment.Shop;
@@ -24,8 +24,8 @@ public class Person {
 	private boolean sick;
 	private boolean socialDistancing;
 	
-	HashMap<String, GatheringPoint> myGatheringPoints = new HashMap<String, GatheringPoint>();
-	String currentGpName;
+	private HashMap<String, GatheringPoint> myGatheringPoints = new HashMap<String, GatheringPoint>();
+	private String currentGpName;
 	
 	private AgentContext myContext;
 	private AgentDecisionMaking myDecisionMaker;
@@ -37,7 +37,6 @@ public class Person {
 		sick = false;
 		socialDistancing = false;
 		
-		
 		SU.getContext().add(this);
 		
 		myGatheringPoints.put("Shop", SU.getOneObjectAllRandom(Shop.class));
@@ -46,7 +45,7 @@ public class Person {
 		moveToGatheringPoint("Home");
 		
 		myContext = new AgentContext(id, "Home", RepastParam.getCoronaExistsContextStr());
-		myDecisionMaker = new AgentDecisionMaking(id);
+		myDecisionMaker = new AgentDecisionMaking(id, RepastParam.getImitationPreference());
 		
 		Logger.logAgent(id, "Spawned!");
 	}
@@ -77,7 +76,7 @@ public class Person {
 			myContext.updateContext("Home", RepastParam.getCoronaExistsContextStr());
 			Logger.logAgent(id, "Moved to context:" + myContext.getCurrentContext().toString());
 			
-			Action chosenAction = myDecisionMaker.makeDecision(getPossibleActions(), myContext.getCurrentContextFamiliarity(), myContext.getCurrentContextMostFrequentAction());
+			Action chosenAction = myDecisionMaker.makeDecision(getPossibleActions(), myContext.getCurrentContextFamiliarity(), myContext.getCurrentContextMostFrequentAction(), getPreferedActionOfOthers());
 			Logger.logAgent(id, "Chosen action:" + chosenAction.getClass().getSimpleName());
 			if (chosenAction instanceof ActionNoSocialDistance) {
 				socialDistancing = false;
@@ -86,17 +85,16 @@ public class Person {
 				socialDistancing = true;
 			}
 			myContext.updateActionFrequency(chosenAction);
-			
-			stay = Constants.ticksStayHome;
+			stay = Constants.TICKS_STAY_HOME;
 		}
-		else if (SU.getProbTrue(Constants.probGoToGrocery)) {
+		else if (SU.getProbTrue(Constants.PROB_GO_TO_GROCERY)) {
 			
 			moveToGatheringPoint("Shop");
 			
 			myContext.updateContext("Shop", RepastParam.getCoronaExistsContextStr());
 			Logger.logAgent(id, "Moved to context:" + myContext.getCurrentContext().toString());
 			
-			Action chosenAction = myDecisionMaker.makeDecision(getPossibleActions(), myContext.getCurrentContextFamiliarity(), myContext.getCurrentContextMostFrequentAction());
+			Action chosenAction = myDecisionMaker.makeDecision(getPossibleActions(), myContext.getCurrentContextFamiliarity(), myContext.getCurrentContextMostFrequentAction(), getPreferedActionOfOthers());
 			Logger.logAgent(id, "Chosen action:" + chosenAction.getClass().getSimpleName());
 			if (chosenAction instanceof ActionNoSocialDistance) {
 				socialDistancing = false;
@@ -105,8 +103,7 @@ public class Person {
 				socialDistancing = true;
 			}
 			myContext.updateActionFrequency(chosenAction);
-			
-			stay = Constants.ticksStayGrocery;
+			stay = Constants.TICKS_STAY_GROCERY;
 		}
 	}
 	
@@ -119,6 +116,42 @@ public class Person {
 		possibleActions.add(new ActionNoSocialDistance());
 		possibleActions.add(new ActionSocialDistance());
 		return possibleActions;
+	}
+	
+	/**
+	 * This function is only made for the social distancing action, but can be updated to
+	 * incorporate other actions as well if the agent saves its last action/the action it performs in the given context.
+	 * Later this action should only be called when the agent is actually going for imitation.
+	 * @return
+	 */
+	private Action getPreferedActionOfOthers() {
+		
+		HashMap<Action, Integer> actionFrequency = new HashMap<Action, Integer>();
+		ActionSocialDistance   socDis = new ActionSocialDistance();
+		ActionNoSocialDistance noSocDis = new ActionNoSocialDistance();
+		actionFrequency.put(socDis, 0);
+		actionFrequency.put(noSocDis, 0);
+		for (Person otherAtGp : SU.getPersonsAllRandomExcludedGpMax(this, getCurrentGpId(), RepastParam.getImitationNumberOfPeople())) {
+			if (otherAtGp.getSocialDistancing()) {
+				actionFrequency.put(socDis, actionFrequency.get(socDis) + 1);
+			}
+			else {
+				actionFrequency.put(noSocDis, actionFrequency.get(noSocDis) + 1);
+			}
+		}
+		
+		// The frequencies should not be the same, then it is checked whether social distance or no social distance is more frequent
+		if (actionFrequency.get(socDis) != actionFrequency.get(noSocDis)) {
+			if (actionFrequency.get(socDis) > actionFrequency.get(noSocDis)) {
+				return socDis;
+			}
+			else {
+				return noSocDis;
+			}
+		}
+		else {
+			return null;
+		}
 	}
 	
 	/**
@@ -164,5 +197,9 @@ public class Person {
 	
 	public String getMyContexts() {
 		return myContext.getMyContexts();
+	}
+	
+	public int getCurrentGpId() {
+		return myGatheringPoints.get(currentGpName).getId();
 	}
 }

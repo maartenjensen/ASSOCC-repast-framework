@@ -194,4 +194,48 @@ public final class SU {
 		ArrayList<T> objectList = getObjectsAll(clazz);
 		return objectList.get(RandomHelper.nextIntFromTo(0, objectList.size() - 1));
 	}
+	
+	/**
+	 * Retrieves all the Persons at the given gathering point in a random order
+	 * @param excludedObject
+	 * @param gpId
+	 * @return
+	 */
+	public static ArrayList<Person> getPersonsAllRandomExcludedGp(Person excludedObject, int gpId) {
+		
+		final Iterable<Object> persons = (Iterable<Object>) getContext().getObjects(Person.class);
+		final ArrayList<Person> personList = new ArrayList<Person>();
+		for (final Object person : persons) {
+			if (person != excludedObject && ((Person) person).getCurrentGpId() == gpId) {
+				personList.add((Person) person);
+			}
+		}
+		SimUtilities.shuffle(personList, RandomHelper.getUniform());
+		return personList;
+	}
+	
+	/**
+	 * Retrieves all the Persons at the given gathering point in a random order to a maximum of the given variable,
+	 * the function first calls getPersonsAllRandomExcludedGp(...), it would seem like its more efficient to modify this
+	 * function directly however an iterable cannot be shuffled.
+	 * @param excludedObject
+	 * @param gpId
+	 * @return
+	 */
+	public static ArrayList<Person> getPersonsAllRandomExcludedGpMax(Person excludedObject, int gpId, int maximum) {
+		
+		int count = 0;
+		if (maximum <= 0)
+			Logger.logError("Error in getPersonsAllRandomExcludedGpMax(...), the maximum should not be zero or lower, it is: " + maximum);
+		
+		final ArrayList<Person> personList = new ArrayList<Person>();
+		for (Person person : getPersonsAllRandomExcludedGp(excludedObject, gpId)) {
+			personList.add(person);
+			count ++;
+			if (count >= maximum) {
+				return personList;
+			}
+		}
+		return personList;
+	}	
 }

@@ -56,6 +56,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 		
 		Logger.logMain("-------------------------- [ Main step ] --------------------------");
 		
+		SU.getObjectsAllRandom(Shop.class).forEach(a -> a.step());
 		SU.getObjectsAllRandom(Person.class).forEach(a -> a.step());
 	}
 	

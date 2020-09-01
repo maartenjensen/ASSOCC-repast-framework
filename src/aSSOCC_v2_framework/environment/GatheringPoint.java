@@ -7,16 +7,20 @@ import repast.simphony.space.grid.GridPoint;
 
 public class GatheringPoint {
 	
-	private int id;
-	private int width;
-	private int height;
-	private final GridPoint location;
+	protected int id;
+	protected String name;
+	protected int width;
+	protected int height;
+	protected final GridPoint location;
+	protected boolean open;
 	
 	protected GatheringPoint(int id, String name, GridPoint location, int width, int height) {
 		this.id = id;
+		this.name = name;
 		this.width = width;
 		this.height = height;
 		this.location = location;
+		this.open = true;
 		
 		Logger.logMain("Spawned this " + name + " with id:" + id);
 		
@@ -40,6 +44,14 @@ public class GatheringPoint {
 	
 	public GridPoint getLocation() {
 		return location;
+	}
+	
+	public boolean isOpen() {
+		return open;
+	}
+	
+	public String getLabel() {
+		return "Warning this is a non extended Gathering Point";
 	}
 	
 	/**

@@ -7,4 +7,8 @@ public class House extends GatheringPoint {
 	public House(int id, GridPoint location, int width, int height) {
 		super(id, "House", location, width, height);	
 	}	
+	
+	public String getLabel() {
+		return id + " " + name;
+	}
 }

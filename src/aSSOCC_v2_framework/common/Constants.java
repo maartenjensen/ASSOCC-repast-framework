@@ -1,5 +1,7 @@
 package aSSOCC_v2_framework.common;
 
+import java.awt.Font;
+
 public final class Constants {
 
 	// Repast specific
@@ -14,7 +16,12 @@ public final class Constants {
 	public static final int TICKS_STAY_HOME = 5;
 	public static final int TICKS_STAY_GROCERY = 3;
 	
+	public static final float PROB_CLOSE_SHOP = 0.04f;
+	public static final int TICKS_CLOSE_SHOP = 5;
+
 	// Visualization
 	public static final int VIS_AGENT_RADIUS_NO_DISTANCE = 14;
 	public static final int VIS_AGENT_RADIUS_DISTANCE = 4;
+	
+	public static final Font FONT_SMALL = new Font("Tahoma", Font.PLAIN , 10);
 }

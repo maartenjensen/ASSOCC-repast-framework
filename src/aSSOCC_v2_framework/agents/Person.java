@@ -9,6 +9,8 @@ import aSSOCC_v2_framework.common.RepastParam;
 import aSSOCC_v2_framework.common.SU;
 import aSSOCC_v2_framework.decisionMaking.AgentContext;
 import aSSOCC_v2_framework.decisionMaking.AgentDecisionMaking;
+import aSSOCC_v2_framework.decisionMaking.ContextCorona;
+import aSSOCC_v2_framework.decisionMaking.ContextLocation;
 import aSSOCC_v2_framework.decisionMaking.Actions.Action;
 import aSSOCC_v2_framework.decisionMaking.Actions.ActionNoSocialDistance;
 import aSSOCC_v2_framework.decisionMaking.Actions.ActionSocialDistance;
@@ -24,8 +26,8 @@ public class Person {
 	private boolean sick;
 	private boolean socialDistancing;
 	
-	private HashMap<String, GatheringPoint> myGatheringPoints = new HashMap<String, GatheringPoint>();
-	private String currentGpName;
+	private HashMap<ContextLocation, GatheringPoint> myGatheringPoints = new HashMap<ContextLocation, GatheringPoint>();
+	private ContextLocation currentGpName;
 	
 	private AgentContext myContext;
 	private AgentDecisionMaking myDecisionMaker;
@@ -39,12 +41,12 @@ public class Person {
 		
 		SU.getContext().add(this);
 		
-		myGatheringPoints.put("Shop", SU.getOneObjectAllRandom(Shop.class));
-		myGatheringPoints.put("Home", SU.getOneObjectAllRandom(House.class));
+		myGatheringPoints.put(ContextLocation.HOME, SU.getOneObjectAllRandom(House.class));
+		myGatheringPoints.put(ContextLocation.SHOP_REG, SU.getOneObjectAllRandom(Shop.class));
 		
-		moveToGatheringPoint("Home");
+		moveToGatheringPoint(ContextLocation.HOME);
 		
-		myContext = new AgentContext(id, "Home", RepastParam.getCoronaExistsContextStr());
+		myContext = new AgentContext(id, ContextLocation.HOME, ContextCorona.getCoronaContext(RepastParam.getCoronaExists(), RepastParam.getCoronaRiskHigh()) );
 		myDecisionMaker = new AgentDecisionMaking(id, RepastParam.getImitationPreference());
 		
 		Logger.logAgent(id, "Spawned!");
@@ -69,11 +71,11 @@ public class Person {
 			return ;
 		}
 		
-		if (currentGpName.equals("Shop")) {
+		if (currentGpName.equals(ContextLocation.SHOP_REG)) {
 			
-			moveToGatheringPoint("Home");
+			moveToGatheringPoint(ContextLocation.HOME);
 			
-			myContext.updateContext("Home", RepastParam.getCoronaExistsContextStr());
+			myContext.updateContext( ContextLocation.HOME, ContextCorona.getCoronaContext(RepastParam.getCoronaExists(), RepastParam.getCoronaRiskHigh()) );
 			Logger.logAgent(id, "Moved to context:" + myContext.getCurrentContext().toString());
 			
 			Action chosenAction = myDecisionMaker.makeDecision(getPossibleActions(), myContext.getCurrentContextFamiliarity(), myContext.getCurrentContextMostFrequentAction(), getPreferedActionOfOthers());
@@ -89,9 +91,9 @@ public class Person {
 		}
 		else if (SU.getProbTrue(Constants.PROB_GO_TO_GROCERY)) {
 			
-			moveToGatheringPoint("Shop");
+			moveToGatheringPoint(ContextLocation.SHOP_REG);
 			
-			myContext.updateContext("Shop", RepastParam.getCoronaExistsContextStr());
+			myContext.updateContext( ContextLocation.SHOP_REG, ContextCorona.getCoronaContext(RepastParam.getCoronaExists(), RepastParam.getCoronaRiskHigh()) );
 			Logger.logAgent(id, "Moved to context:" + myContext.getCurrentContext().toString());
 			
 			Action chosenAction = myDecisionMaker.makeDecision(getPossibleActions(), myContext.getCurrentContextFamiliarity(), myContext.getCurrentContextMostFrequentAction(), getPreferedActionOfOthers());
@@ -160,7 +162,7 @@ public class Person {
 	 * further from the center (social distancing).
 	 * @param gpName
 	 */
-	public void moveToGatheringPoint(String gpName) {
+	public void moveToGatheringPoint(ContextLocation gpName) {
 		if (!myGatheringPoints.containsKey(gpName)) {
 			Logger.logError("Error in Person " + id + " no gp with name '" + gpName + "' found.");
 		}

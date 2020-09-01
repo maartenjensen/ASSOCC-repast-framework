@@ -16,20 +16,15 @@ public class RepastParam {
 		return RunEnvironment.getInstance().getParameters().getInteger("imitation_number_of_people");
 	}
 	
-	public static boolean getCoronaExistsContext() {
+	public static boolean getCoronaExists() {
 		return RunEnvironment.getInstance().getParameters().getBoolean("corona_exists");
+	}
+	
+	public static boolean getCoronaRiskHigh() {
+		return RunEnvironment.getInstance().getParameters().getBoolean("corona_risk_high");
 	}
 	
 	public static float getProbabilityRepeatFamiliar() {
 		return RunEnvironment.getInstance().getParameters().getFloat("probability_repeat_familiar");
-	}
-	
-	public static String getCoronaExistsContextStr() {
-		if (RunEnvironment.getInstance().getParameters().getBoolean("corona_exists")) {
-			return "YesCorona";
-		}
-		else {
-			return "NoCorona";
-		}
 	}
 }

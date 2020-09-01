@@ -19,7 +19,7 @@ public class AgentContext {
 	/**
 	 * The constructor, in the future it should actually read the context from a file.
 	 */
-	public AgentContext(int agentId, String location, String coronaExists) {
+	public AgentContext(int agentId, ContextLocation location, ContextCorona coronaExists) {
 		
 		this.agentId = agentId;
 		myContexts = new HashMap<String, ContextFamiliarity>(); 
@@ -31,14 +31,15 @@ public class AgentContext {
 	}
 	
 	/**
-	 * Should be used every time an agent switches context
+	 * Should be used every time an agent switches context, the contextEnums can
+	 * be custom build
 	 * @param location
 	 * @param coronaExists
 	 */
-	public void updateContext(String location, String coronaExists) {
+	public void updateContext(ContextLocation location, ContextCorona coronaExists) {
 		
-		myCurrentContext.put("Location", location);
-		myCurrentContext.put("CoronaExists", coronaExists);
+		myCurrentContext.put(ContextLocation.getGeneralContextName(), location.name());
+		myCurrentContext.put(ContextLocation.getGeneralContextName(), coronaExists.name());
 		addCurrentContextToContexts();
 	}
 	

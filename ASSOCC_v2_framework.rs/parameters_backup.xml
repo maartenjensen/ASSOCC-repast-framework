@@ -42,6 +42,12 @@
 						converter="repast.simphony.parameter.StringConverterFactory$FloatConverter"
 									
 		/>
+				<parameter name="corona_risk_high" displayName="Corona Risk High (T)/Low (F)" type="boolean" 
+						defaultValue="false" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$BooleanConverter"
+									
+		/>
 		</parameters>
 
 

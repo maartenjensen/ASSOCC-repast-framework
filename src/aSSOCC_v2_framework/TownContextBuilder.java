@@ -4,6 +4,7 @@ import aSSOCC_v2_framework.agents.Person;
 import aSSOCC_v2_framework.common.Constants;
 import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.common.SU;
+import aSSOCC_v2_framework.decisionMaking.ContextLocation;
 import aSSOCC_v2_framework.environment.GatheringPoint;
 import aSSOCC_v2_framework.environment.House;
 import aSSOCC_v2_framework.environment.Shop;
@@ -97,7 +98,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 	private void moveGatheringPoints() {
 		
 		SU.getObjectsAll(GatheringPoint.class).forEach(g -> g.moveTo(g.getLocation()));
-		SU.getObjectsAll(Person.class).forEach(p -> p.moveToGatheringPoint("Home"));
+		SU.getObjectsAll(Person.class).forEach(p -> p.moveToGatheringPoint(ContextLocation.HOME));
 	}
 	
 	private ContinuousSpace<Object> createContinuousSpace(final Context<Object> context) {

@@ -27,4 +27,12 @@ public class RepastParam {
 	public static float getProbabilityRepeatFamiliar() {
 		return RunEnvironment.getInstance().getParameters().getFloat("probability_repeat_familiar");
 	}
+	
+	public static boolean getShopOpen1() {
+		return RunEnvironment.getInstance().getParameters().getBoolean("shop_open_1");
+	}
+	
+	public static boolean getShopOpen2() {
+		return RunEnvironment.getInstance().getParameters().getBoolean("shop_open_2");
+	}
 }

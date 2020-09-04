@@ -13,8 +13,8 @@ public final class Constants {
 	
 	// Simulation specific
 	public static final float PROB_GO_TO_GROCERY = 0.1f;
-	public static final int TICKS_STAY_HOME = 5;
-	public static final int TICKS_STAY_GROCERY = 3;
+	public static final int TICKS_STAY_HOME = 6;
+	public static final int TICKS_STAY_GROCERY = 4;
 	
 	public static final float PROB_CLOSE_SHOP = 0.04f;
 	public static final int TICKS_CLOSE_SHOP = 5;

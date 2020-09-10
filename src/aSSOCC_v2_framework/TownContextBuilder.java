@@ -49,21 +49,34 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 		return context;
 	}
 	
+	/**
+	 * To make this step more efficient we could decide to only take the subset of agets that are actually moving to the new place
+	 * and letting the agents that do not move do nothing.
+	 */
 	@ScheduledMethod(start = 1, interval = 1, priority = 0)
 	public void mainStep() {
 		
 		SU.getDataCollector().resetTemporaryVariables();
 		
-		Logger.logMain("-------------------------- [ Main step ] --------------------------");
+		double tick = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		Logger.logMain("-------------------------- [ Step " + tick + " : social distance ] --------------------------");
 		
 		SU.getObjectsAllRandom(Person.class).forEach(a -> a.step());
 	}
 	
-	//@ScheduledMethod(start = 1, interval = 0.25, priority = 0)
-	//public void smallSteps() {
-	//	Logger.logMain("-------------------------- [ Small step ] --------------------------");
-	//}
-	
+	/**
+	 * In this step the agents determine if they move to another place
+	 */
+	@ScheduledMethod(start = 0.5, interval = 1, priority = 0)
+	public void smallSteps() {
+		
+		double tick = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		Logger.logMain("-------------------------- [ Step " + tick + " : move to ] --------------------------");
+		
+		SU.getObjectsAllRandom(Shop.class).forEach(a -> a.step());
+		SU.getObjectsAllRandom(Person.class).forEach(a -> a.stepGoTo());
+	}
+
 	/**
 	 * Spawn houses, supermarket, persons and context and move them to 
 	 * the right place in the grid.
@@ -71,13 +84,17 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 	public void CreateWorld() {
 		
 		Parameters params = RunEnvironment.getInstance().getParameters();
+		int shopCount = (Integer) params.getValue("shop_count");
+		for (int i = 0; i < shopCount; i++) {
+			Shop tShop = new Shop(SU.getNewGatheringPointId(), new GridPoint(30, 15 + i * 22), 21, 21);
+			tShop.moveTo(tShop.getLocation());
+		}
+		
 		int houseCount = (Integer) params.getValue("house_count");
 		for (int i = 0; i < houseCount; i++) {
 			House tHouse = new House(SU.getNewGatheringPointId(), new GridPoint(5, 5 + i * 9), 7, 7);
 			tHouse.moveTo(tHouse.getLocation());
 		}
-		
-		new Shop(SU.getNewGatheringPointId(), new GridPoint(30,30), 21, 21);
 		
 		int personCount = (Integer) params.getValue("person_count");
 		for (int i = 0; i < personCount; i++) {

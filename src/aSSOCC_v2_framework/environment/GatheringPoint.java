@@ -2,21 +2,28 @@ package aSSOCC_v2_framework.environment;
 
 import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.common.SU;
+import aSSOCC_v2_framework.decisionMaking.ContextLocation;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.space.grid.GridPoint;
 
 public class GatheringPoint {
 	
-	private int id;
-	private int width;
-	private int height;
-	private final GridPoint location;
+	protected int id;
+	protected String name;
+	protected int width;
+	protected int height;
+	protected final GridPoint location;
+	protected boolean open;
+	protected ContextLocation contextLocaction;
 	
-	protected GatheringPoint(int id, String name, GridPoint location, int width, int height) {
+	protected GatheringPoint(int id, String name, GridPoint location, int width, int height, ContextLocation contextLocaction) {
 		this.id = id;
+		this.name = name;
 		this.width = width;
 		this.height = height;
 		this.location = location;
+		this.open = true;
+		this.contextLocaction = contextLocaction;
 		
 		Logger.logMain("Spawned this " + name + " with id:" + id);
 		
@@ -40,6 +47,18 @@ public class GatheringPoint {
 	
 	public GridPoint getLocation() {
 		return location;
+	}
+	
+	public boolean isOpen() {
+		return open;
+	}
+	
+	public ContextLocation getContextLocation() {
+		return contextLocaction;
+	}
+	
+	public String getLabel() {
+		return "Warning this is a non extended Gathering Point";
 	}
 	
 	/**

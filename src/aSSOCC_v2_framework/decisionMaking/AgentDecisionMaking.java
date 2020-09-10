@@ -55,7 +55,7 @@ public class AgentDecisionMaking {
 			else {
 				Logger.logAgent(agentId, "[Rational choice]");
 				SU.getDataCollector().addActionRational();
-				if (RepastParam.getCoronaExistsContext()) { //TODO implement this better and dependent on possibleActions
+				if (RepastParam.getCoronaExists()) { //TODO implement this better and dependent on possibleActions
 					return new ActionSocialDistance();
 				}
 				else {

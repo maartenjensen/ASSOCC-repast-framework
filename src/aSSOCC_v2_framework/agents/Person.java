@@ -175,7 +175,6 @@ public class Person {
 				actionFrequency.put(noSocDis, actionFrequency.get(noSocDis) + 1);
 			}
 		}
-		
 		// The frequencies should not be the same, then it is checked whether social distance or no social distance is more frequent
 		if (actionFrequency.get(socDis) != actionFrequency.get(noSocDis)) {
 			if (actionFrequency.get(socDis) > actionFrequency.get(noSocDis)) {
@@ -201,10 +200,12 @@ public class Person {
 			Logger.logError("Error in Person " + id + " no gp with name '" + gpName + "' found.");
 		}
 		
-		GridPoint gpLocation = myGatheringPoints.get(gpName).getRandomLocationOnGP();
-		moveTo(gpLocation);
+		//GridPoint gpLocation = myGatheringPoints.get(gpName).getRandomLocationOnGP();
+		//moveTo(gpLocation);
+		GatheringPoint gpReference = myGatheringPoints.get(gpName);
+		SU.moveToGp(this, gpReference, currentGp);
 		
-		currentGp = myGatheringPoints.get(gpName);
+		currentGp = gpReference;
 	}
 	
 	public void moveToGatheringPoint(GatheringPoint gpReference) {
@@ -212,12 +213,13 @@ public class Person {
 			Logger.logError("Error in Person " + id + " gp is invalid:'" + gpReference);
 		}
 		
-		GridPoint gpLocation = gpReference.getRandomLocationOnGP();
-		moveTo(gpLocation);
+		//GridPoint gpLocation = gpReference.getRandomLocationOnGP();
+		//moveTo(gpLocation);
+		SU.moveToGp(this, gpReference, currentGp);
 		
 		currentGp = gpReference;
 	}
-	
+	//Only use when moving to spots inbetween gatheringpoints /Emil
 	public void moveTo(GridPoint point) {
 		if (!SU.getGrid().moveTo(this, point.getX(), point.getY())) {
 			Logger.logError("Person " + id + " could not be placed, coordinate: " + point);

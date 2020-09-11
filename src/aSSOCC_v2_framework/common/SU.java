@@ -5,7 +5,9 @@ import java.util.Random;
 
 import aSSOCC_v2_framework.DataCollector;
 import aSSOCC_v2_framework.agents.Person;
+import aSSOCC_v2_framework.environment.DayPart;
 import repast.simphony.context.Context;
+import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
@@ -238,4 +240,40 @@ public final class SU {
 		}
 		return personList;
 	}	
+	
+	/**
+	 * The part of the day first rounded up as for example tick 0.5 should be morning movement, while tick 1 should be the morning then.
+	 * @return
+	 */
+	public static DayPart getDayPart() {
+		int tick = (int) Math.ceil(RunEnvironment.getInstance().getCurrentSchedule().getTickCount()) - 1;
+		int tick_of_day = tick % Constants.TICKS_PER_DAY;
+		return DayPart.getDayPart(tick_of_day);
+	}
+	
+	/**
+	 * This function should be updated to get the day part directly from the Enum
+	 * @param tick
+	 * @return
+	 */
+	public static String getDayAndTime() {
+		
+		int int_tick = (int) Math.ceil(RunEnvironment.getInstance().getCurrentSchedule().getTickCount()) - 1;
+		int tick_of_day = int_tick % Constants.TICKS_PER_DAY;
+		int day = (int_tick - tick_of_day) / 4;
+		
+		switch(tick_of_day) {
+		case 0:
+			return "Day " + day + " - MORNING";
+		case 1:
+			return "Day " + day + " - AFTERNOON";
+		case 2:
+			return "Day " + day + " - EVENING";
+		case 3:
+			return "Day " + day + " - NIGHT";
+		default :
+			return "Day " + day + " - UNDEFINED";
+		}
+		
+	}
 }

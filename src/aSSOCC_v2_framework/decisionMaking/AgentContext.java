@@ -13,7 +13,7 @@ import aSSOCC_v2_framework.decisionMaking.Actions.Action;
 public class AgentContext {
 
 	private int agentId;
-	HashMap<String, ContextFamiliarity> myContexts; 
+	HashMap<String, ParametersForContext> myContexts; 
 	HashMap<String, String> myCurrentContext;
 	
 	/**
@@ -22,7 +22,7 @@ public class AgentContext {
 	public AgentContext(int agentId, ContextLocation location, ContextCorona coronaExists) {
 		
 		this.agentId = agentId;
-		myContexts = new HashMap<String, ContextFamiliarity>(); 
+		myContexts = new HashMap<String, ParametersForContext>(); 
 		myCurrentContext = new HashMap<String, String>();
 		
 		updateContext(location, coronaExists);
@@ -50,13 +50,13 @@ public class AgentContext {
 		
 		String strCurrentContext = myCurrentContext.toString();
 		if (!myContexts.containsKey(strCurrentContext)) {
-			myContexts.put(strCurrentContext, new ContextFamiliarity(0.0f));
+			myContexts.put(strCurrentContext, new ParametersForContext(0.0f, 0.0f));
 		}
 	}
 	
 	public void updateActionFrequency(Action performedAction) {
 		
-		ContextFamiliarity contextFamiliarity = myContexts.get(myCurrentContext.toString());
+		ParametersForContext contextFamiliarity = myContexts.get(myCurrentContext.toString());
 		contextFamiliarity.addPerformedAction(performedAction);
 		Logger.logAgent(agentId, "Added performed action:" + performedAction + " to " + myCurrentContext.toString() + " which now has " + contextFamiliarity.toStringExt());
 	}

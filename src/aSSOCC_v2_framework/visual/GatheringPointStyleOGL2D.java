@@ -48,7 +48,7 @@ public class GatheringPointStyleOGL2D extends DefaultStyleOGL2D {
 	@Override
 	public Font getLabelFont(Object object) {
 		
-	    return Constants.FONT_SMALL;
+	    return Constants.FONT_MEDIUM;
 	}
 	
 	@Override

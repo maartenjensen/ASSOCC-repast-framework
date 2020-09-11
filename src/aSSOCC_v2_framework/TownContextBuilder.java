@@ -59,8 +59,9 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 		SU.getDataCollector().resetTemporaryVariables();
 		
 		double tick = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
-		Logger.logMain("-------------------------- [ Step " + tick + " : social distance ] --------------------------");
+		Logger.logMain("-------------------------- [ Step " + tick + ": " + SU.getDayAndTime() + " : social distance ] --------------------------");
 		
+		SU.getObjectsAllRandom(Shop.class).forEach(a -> a.step());
 		SU.getObjectsAllRandom(Person.class).forEach(a -> a.step());
 	}
 	
@@ -71,7 +72,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 	public void smallSteps() {
 		
 		double tick = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
-		Logger.logMain("-------------------------- [ Step " + tick + " : move to ] --------------------------");
+		Logger.logMain("-------------------------- [ Step " + tick + ": " + SU.getDayAndTime() + " : move to ] --------------------------");
 		
 		SU.getObjectsAllRandom(Shop.class).forEach(a -> a.step());
 		SU.getObjectsAllRandom(Person.class).forEach(a -> a.stepGoTo());
@@ -116,6 +117,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 		
 		SU.getObjectsAll(GatheringPoint.class).forEach(g -> g.moveTo(g.getLocation()));
 		SU.getObjectsAll(Person.class).forEach(p -> p.moveToGatheringPoint(ContextLocation.HOME));
+		SU.getDataCollector().moveTo(new GridPoint(49, 49));
 	}
 	
 	private ContinuousSpace<Object> createContinuousSpace(final Context<Object> context) {
@@ -138,4 +140,5 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 										50, 50));
 		return grid;
 	}
+	
 }

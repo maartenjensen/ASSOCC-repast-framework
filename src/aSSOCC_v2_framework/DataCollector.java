@@ -1,6 +1,9 @@
 package aSSOCC_v2_framework;
 
+import aSSOCC_v2_framework.common.Logger;
+import aSSOCC_v2_framework.common.SU;
 import repast.simphony.context.Context;
+import repast.simphony.space.grid.GridPoint;
 
 public class DataCollector {
 
@@ -14,6 +17,7 @@ public class DataCollector {
 	
 	public DataCollector(final Context<Object> context) {
 		context.add(this); // This class is added to the context so that it can be used by the plotting functions of repast
+		
 	}
 	
 	public void resetVariables() {
@@ -83,5 +87,15 @@ public class DataCollector {
 	
 	public float getActionRationalTemp() {
 		return actionRationalTemp;
+	}
+	
+	public void moveTo(GridPoint location) {
+		if (!SU.getGrid().moveTo(this, location.getX(), location.getY())) {
+			Logger.logError("GatheringPoint could not be placed, coordinate: " + location);
+		}
+	}
+	
+	public String getLabel() {
+		return SU.getDayAndTime();
 	}
 }

@@ -7,19 +7,30 @@ import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.decisionMaking.Actions.Action;
 import repast.simphony.random.RandomHelper;
 
-public class ContextFamiliarity {
+/**
+ * This should be renamed, but it also takes into account, whether an action went wrong
+ * @author Maarten
+ *
+ */
+public class ParametersForContext {
 
 	private float familiarity;
+	private float actionFail;
 	private HashMap<Action, Integer> actionFrequencies; 
 	
-	public ContextFamiliarity(float familiarity) {
+	public ParametersForContext(float familiarity, float actionFail) {
 		
 		this.familiarity = familiarity;		
+		this.actionFail = actionFail;
 		actionFrequencies = new HashMap<Action, Integer>();
 	}
 	
 	public float getFamiliarity() {
 		return familiarity;
+	}
+	
+	public float getActionFail() {
+		return actionFail;
 	}
 	
 	public String toString() {
@@ -30,7 +41,6 @@ public class ContextFamiliarity {
 		else {
 			return familiarity + ", " + getMostFrequentAction().toString();
 		}
-		
 	}
 	
 	public String toStringExt() {

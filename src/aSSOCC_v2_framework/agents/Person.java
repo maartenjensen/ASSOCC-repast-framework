@@ -106,6 +106,9 @@ public class Person {
 		}
 	}
 	
+	/**
+	 * The step to move to other gathering points
+	 */
 	public void stepGoTo() {
 		
 		// Go home when the shop closed

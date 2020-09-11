@@ -3,6 +3,10 @@
   <type>2D</type>
   <styles>
     <entry>
+      <string>aSSOCC_v2_framework.DataCollector</string>
+      <string>aSSOCC_v2_framework.visual.DataCollectorStyleOGL2D2</string>
+    </entry>
+    <entry>
       <string>aSSOCC_v2_framework.agents.Person</string>
       <string>aSSOCC_v2_framework.visual.PersonStyleOGL2D</string>
     </entry>
@@ -12,6 +16,10 @@
     </entry>
   </styles>
   <editedStyles>
+    <entry>
+      <string>aSSOCC_v2_framework.DataCollector</string>
+      <null/>
+    </entry>
     <entry>
       <string>aSSOCC_v2_framework.agents.Person</string>
       <null/>
@@ -31,19 +39,23 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-1302347053</hashCode>
+    <hashCode>-1351848163</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>grid</layoutProjection>
   <layoutInterval>0</layoutInterval>
   <layerOrder>
     <entry>
+      <string>aSSOCC_v2_framework.DataCollector</string>
+      <int>0</int>
+    </entry>
+    <entry>
       <string>aSSOCC_v2_framework.agents.Person</string>
-      <int>1</int>
+      <int>2</int>
     </entry>
     <entry>
       <string>aSSOCC_v2_framework.environment.GatheringPoint</string>
-      <int>0</int>
+      <int>1</int>
     </entry>
   </layerOrder>
   <projections>

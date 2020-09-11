@@ -1,7 +1,7 @@
 package aSSOCC_v2_framework.environment;
 
 import aSSOCC_v2_framework.common.Logger;
-import aSSOCC_v2_framework.common.RepastParam;
+import aSSOCC_v2_framework.common.SU;
 import aSSOCC_v2_framework.decisionMaking.ContextLocation;
 import repast.simphony.space.grid.GridPoint;
 
@@ -16,12 +16,19 @@ public class Shop extends GatheringPoint {
 	public void step() {
 		
 		Logger.logMain("Shop step");
-		if (id == 1) {
+		if (SU.getDayPart() == DayPart.NIGHT) {
+			open = false;
+		}
+		else {
+			open = true;
+		}
+		/* This part is commented
+		 if (id == 1) {
 			open = RepastParam.getShopOpen1();
 		}
 		else {
 			open = RepastParam.getShopOpen2();
-		}
+		}*/
 	}
 	
 	public String getLabel() {

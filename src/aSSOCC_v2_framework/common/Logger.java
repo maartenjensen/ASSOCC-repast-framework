@@ -4,8 +4,8 @@ import repast.simphony.engine.environment.RunEnvironment;
 
 public class Logger {
 
-	private static boolean logMain = true;
-	private static boolean logAgent = true;
+	private static boolean logMain = false;
+	private static boolean logAgent = false;
 	private static boolean logErrors = true;
 	
 	public static void logMain(String output) {

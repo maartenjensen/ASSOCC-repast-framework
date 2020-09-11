@@ -1,14 +1,17 @@
 package aSSOCC_v2_framework.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import aSSOCC_v2_framework.DataCollector;
 import aSSOCC_v2_framework.agents.Person;
+import aSSOCC_v2_framework.environment.GatheringPoint;
 import repast.simphony.context.Context;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
+import repast.simphony.space.grid.GridPoint;
 import repast.simphony.util.SimUtilities;
 
 /**
@@ -24,6 +27,8 @@ public final class SU {
 	
 	private static int newPersonId = 0;
 	private static int newGatheringPointId = 0;
+	
+	private static HashMap<Integer, ArrayList<Person>> peopleAtLocations = new HashMap<Integer, ArrayList<Person>>();
 	
 	private static DataCollector dataCollector = null;
 	
@@ -203,13 +208,16 @@ public final class SU {
 	 */
 	public static ArrayList<Person> getPersonsAllRandomExcludedGp(Person excludedObject, int gpId) {
 		
-		final Iterable<Object> persons = (Iterable<Object>) getContext().getObjects(Person.class);
-		final ArrayList<Person> personList = new ArrayList<Person>();
-		for (final Object person : persons) {
-			if (person != excludedObject && ((Person) person).getCurrentGpId() == gpId) {
-				personList.add((Person) person);
-			}
-		}
+		ArrayList<Person> personList = new ArrayList<Person>(peopleAtLocations.get(gpId));
+		personList.remove(excludedObject);
+		
+		//final Iterable<Object> persons = (Iterable<Object>) getContext().getObjects(Person.class);
+		//final ArrayList<Person> personList = new ArrayList<Person>();
+		//for (final Object person : persons) {
+		//	if (person != excludedObject && ((Person) person).getCurrentGpId() == gpId) {
+		//		personList.add((Person) person);
+		//	}
+		//}
 		SimUtilities.shuffle(personList, RandomHelper.getUniform());
 		return personList;
 	}
@@ -238,4 +246,25 @@ public final class SU {
 		}
 		return personList;
 	}	
+	
+	/**
+	 * Moves the given person to the given gathering point
+	 * @param person
+	 * @param gpId
+	 * @author Emil
+	 */
+	public static void moveToGp(Person person, GatheringPoint gpReference, GatheringPoint oldLocation) {
+		if(oldLocation != null && peopleAtLocations.containsKey(oldLocation.getId())){
+			peopleAtLocations.get(oldLocation.getId()).remove(person);
+		}
+		if(!peopleAtLocations.containsKey(gpReference.getId())){
+			peopleAtLocations.put(gpReference.getId(), new ArrayList<Person>());
+		}
+		peopleAtLocations.get(gpReference.getId()).add(person);
+		
+		GridPoint gpLocation = gpReference.getRandomLocationOnGP();
+		if (!SU.getGrid().moveTo(person, gpLocation.getX(), gpLocation.getY())) {
+			Logger.logError("Person " + person.getId() + " could not be placed, coordinate: " + gpLocation);
+		}
+	}
 }

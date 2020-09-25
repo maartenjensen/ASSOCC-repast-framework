@@ -12,6 +12,6 @@
     <string>SettingsRegistryId</string>
     <string>Repast.registry</string>
     <string>LastLoadedScenario</string>
-    <string>D:\Work-Umeå\Workspace-eclipse\ASSOCC_v2_framework\ASSOCC_v2_framework.rs</string>
+    <string>/Users/Emil/git/ASSOCC-repast-framework/ASSOCC_v2_framework.rs</string>
   </hashtable>
 </simphony.settings.SettingsRegistry>

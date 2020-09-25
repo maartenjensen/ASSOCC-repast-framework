@@ -122,22 +122,32 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 	
 	private ContinuousSpace<Object> createContinuousSpace(final Context<Object> context) {
 		
+		Parameters params = RunEnvironment.getInstance().getParameters();
+		int shopCount = (Integer) params.getValue("shop_count");
+		int houseCount = (Integer) params.getValue("house_count");
+		int height = Math.max(5 + shopCount * 22, 5 + houseCount * 9);
+		
 		final ContinuousSpace<Object> space = ContinuousSpaceFactoryFinder.createContinuousSpaceFactory(null).
 				createContinuousSpace( 	Constants.ID_SPACE, context,
 										new RandomCartesianAdder<Object>(),
 										new repast.simphony.space.continuous.BouncyBorders(),
-										50, 50);
+										50, height);
 		return space;
 	}
 	
 	private Grid<Object> createGrid(final Context<Object> context) {
+		
+		Parameters params = RunEnvironment.getInstance().getParameters();
+		int shopCount = (Integer) params.getValue("shop_count");
+		int houseCount = (Integer) params.getValue("house_count");
+		int height = Math.max(5 + shopCount * 22, 5 + houseCount * 9);
 		
 		final Grid<Object> grid = GridFactoryFinder.createGridFactory(null).createGrid(
 										Constants.ID_GRID, context,
 										new GridBuilderParameters<Object>(
 										new repast.simphony.space.grid.BouncyBorders(),
 										new SimpleGridAdder<Object>(), true,
-										50, 50));
+										50, height));
 		return grid;
 	}
 	

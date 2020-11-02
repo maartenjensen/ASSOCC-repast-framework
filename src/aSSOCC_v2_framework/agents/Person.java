@@ -56,7 +56,7 @@ public class Person {
 		moveToGatheringPoint(ContextLocation.HOME);
 		
 		myContext = new AgentContext(id, ContextLocation.HOME, ContextCorona.getCoronaContext(RepastParam.getCoronaExists(), RepastParam.getCoronaRiskHigh()) );
-		myDecisionMaker = new AgentDecisionMaking(id, RepastParam.getImitationPreference());
+		myDecisionMaker = new AgentDecisionMaking(this, id, RepastParam.getImitationPreference());
 		
 		Logger.logAgent(id, "Spawned!");
 	}

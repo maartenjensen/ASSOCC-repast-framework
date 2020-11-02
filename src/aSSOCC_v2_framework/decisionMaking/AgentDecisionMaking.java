@@ -2,6 +2,7 @@ package aSSOCC_v2_framework.decisionMaking;
 
 import java.util.ArrayList;
 
+import aSSOCC_v2_framework.agents.Person;
 import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.common.RepastParam;
 import aSSOCC_v2_framework.common.SU;
@@ -19,10 +20,12 @@ import aSSOCC_v2_framework.decisionMaking.Actions.ActionSocialDistance;
  */
 public class AgentDecisionMaking {
 
+	private Person person; // This is added for the purpose of prototyping, so that this class can reach its Person object. However for a stable implementation this should be removed.
 	private int agentId;
 	private float imitationPreference;
 	
-	public AgentDecisionMaking(int agentId, float imitationPreference) {
+	public AgentDecisionMaking(Person person, int agentId, float imitationPreference) {
+		this.person = person;
 		this.agentId = agentId;
 		this.imitationPreference = imitationPreference;
 	}

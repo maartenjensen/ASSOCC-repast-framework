@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 import aSSOCC_v2_framework.DataCollector;
-import aSSOCC_v2_framework.agents.Person;
 import aSSOCC_v2_framework.environment.DayPart;
 import aSSOCC_v2_framework.environment.GatheringPoint;
+import aSSOCC_v2_framework.agents.Person;
 import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;

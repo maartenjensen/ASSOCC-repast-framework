@@ -2,7 +2,7 @@ package aSSOCC_v2_framework.environment;
 
 import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.common.SU;
-import aSSOCC_v2_framework.decisionMaking.ContextLocation;
+import aSSOCC_v2_framework.preprototype.ContextLocation;
 import repast.simphony.space.grid.GridPoint;
 
 public class Shop extends GatheringPoint {

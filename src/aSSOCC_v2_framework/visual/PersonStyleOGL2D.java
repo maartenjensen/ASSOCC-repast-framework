@@ -2,8 +2,8 @@ package aSSOCC_v2_framework.visual;
 
 import java.awt.Color;
 
-import aSSOCC_v2_framework.agents.Person;
 import aSSOCC_v2_framework.common.Constants;
+import aSSOCC_v2_framework.agents.Person;
 import repast.simphony.visualizationOGL2D.DefaultStyleOGL2D;
 import saf.v3d.scene.VSpatial;
 

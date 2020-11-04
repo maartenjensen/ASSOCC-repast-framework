@@ -1,13 +1,14 @@
 package aSSOCC_v2_framework;
 
-import aSSOCC_v2_framework.agents.Person;
 import aSSOCC_v2_framework.common.Constants;
 import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.common.SU;
-import aSSOCC_v2_framework.decisionMaking.ContextLocation;
 import aSSOCC_v2_framework.environment.GatheringPoint;
 import aSSOCC_v2_framework.environment.House;
 import aSSOCC_v2_framework.environment.Shop;
+import aSSOCC_v2_framework.agents.Person;
+import aSSOCC_v2_framework.prototype1.ContextLocation;
+import aSSOCC_v2_framework.prototype1.Person1;
 import repast.simphony.context.Context;
 import repast.simphony.context.space.continuous.ContinuousSpaceFactoryFinder;
 import repast.simphony.context.space.grid.GridFactoryFinder;
@@ -67,6 +68,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 	
 	/**
 	 * In this step the agents determine if they move to another place
+	 * At step 0.5 its morning, so first transport happens then the being at a place (step 1)
 	 */
 	@ScheduledMethod(start = 0.5, interval = 1, priority = 0)
 	public void smallSteps() {
@@ -99,7 +101,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 		
 		int personCount = (Integer) params.getValue("person_count");
 		for (int i = 0; i < personCount; i++) {
-			new Person(SU.getNewPersonId());
+			new Person1(SU.getNewPersonId());
 		}
 
 		for (Object obj : SU.getContext()) {

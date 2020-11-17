@@ -12,6 +12,12 @@
 						converter="repast.simphony.parameter.StringConverterFactory$BooleanConverter"
 									
 		/>
+				<parameter name="workplace_count" displayName="Workplace count" type="int" 
+						defaultValue="5" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+									
+		/>
 				<parameter name="shop_open_2" displayName="Shop open 2" type="boolean" 
 						defaultValue="true" 
 						isReadOnly="false" 
@@ -43,7 +49,7 @@
 									
 		/>
 				<parameter name="person_count" displayName="Person count" type="int" 
-						defaultValue="30" 
+						defaultValue="1" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 									

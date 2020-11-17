@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.common.SU;
+import aSSOCC_v2_framework.environment.ContextLocation;
 import aSSOCC_v2_framework.environment.GatheringPoint;
 import aSSOCC_v2_framework.environment.House;
-import aSSOCC_v2_framework.prototype1.ContextLocation;
 
 public class Person {
 
@@ -15,9 +15,9 @@ public class Person {
 	protected boolean sick;
 	protected boolean socialDistancing;
 	
-	private HashMap<ContextLocation, GatheringPoint> myGatheringPoints = new HashMap<ContextLocation, GatheringPoint>();
-	private GatheringPoint currentGp;
-	private GatheringPoint nextGp;
+	protected HashMap<ContextLocation, GatheringPoint> myGatheringPoints = new HashMap<ContextLocation, GatheringPoint>();
+	protected GatheringPoint currentGp;
+	protected GatheringPoint nextGp;
 	
 	public Person(int id) {
 		
@@ -38,16 +38,22 @@ public class Person {
 		Logger.logAgent(id, "Spawned!");
 	}
 
-	/** This function is performed half a tick before step()
-	 * 
-	 */
-	public void stepGoTo() {
+	public void defineContext() {
+		
 		
 	}
 	
-	public void step() {
+	/** This function is performed half a tick before step()
+	 * 
+	 */
+	public void stepTransfer() {
 		
 	}
+	
+	public void stepStay() {
+		
+	}
+
 	
 	/**
 	 * Move to gathering point dependent given the gathering type name (e.g. Shop, Home)

@@ -1,13 +1,14 @@
 package aSSOCC_v2_framework;
 
+import aSSOCC_v2_framework.agents.Person;
 import aSSOCC_v2_framework.common.Constants;
 import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.common.SU;
+import aSSOCC_v2_framework.environment.ContextLocation;
 import aSSOCC_v2_framework.environment.GatheringPoint;
 import aSSOCC_v2_framework.environment.House;
 import aSSOCC_v2_framework.environment.Shop;
-import aSSOCC_v2_framework.agents.Person;
-import aSSOCC_v2_framework.prototype1.ContextLocation;
+import aSSOCC_v2_framework.environment.Workplace;
 import aSSOCC_v2_framework.prototype1.Person1;
 import repast.simphony.context.Context;
 import repast.simphony.context.space.continuous.ContinuousSpaceFactoryFinder;
@@ -63,7 +64,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 		Logger.logMain("-------------------------- [ Step " + tick + ": " + SU.getDayAndTime() + " : social distance ] --------------------------");
 		
 		SU.getObjectsAllRandom(Shop.class).forEach(a -> a.step());
-		SU.getObjectsAllRandom(Person.class).forEach(a -> a.step());
+		SU.getObjectsAllRandom(Person.class).forEach(a -> a.stepStay());
 	}
 	
 	/**
@@ -77,7 +78,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 		Logger.logMain("-------------------------- [ Step " + tick + ": " + SU.getDayAndTime() + " : move to ] --------------------------");
 		
 		SU.getObjectsAllRandom(Shop.class).forEach(a -> a.step());
-		SU.getObjectsAllRandom(Person.class).forEach(a -> a.stepGoTo());
+		SU.getObjectsAllRandom(Person.class).forEach(a -> a.stepTransfer());
 	}
 
 	/**
@@ -97,6 +98,12 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 		for (int i = 0; i < houseCount; i++) {
 			House tHouse = new House(SU.getNewGatheringPointId(), new GridPoint(5, 5 + i * 9), 7, 7);
 			tHouse.moveTo(tHouse.getLocation());
+		}
+		
+		int workplaceCount = (Integer) params.getValue("workplace_count");
+		for (int i = 0; i < workplaceCount; i++) {
+			Workplace tWorkplace = new Workplace(SU.getNewGatheringPointId(), new GridPoint(70, 9 + i * 16), 13, 13);
+			tWorkplace.moveTo(tWorkplace.getLocation());
 		}
 		
 		int personCount = (Integer) params.getValue("person_count");
@@ -119,7 +126,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 		
 		SU.getObjectsAll(GatheringPoint.class).forEach(g -> g.moveTo(g.getLocation()));
 		SU.getObjectsAll(Person.class).forEach(p -> p.moveToGatheringPoint(ContextLocation.HOME));
-		SU.getDataCollector().moveTo(new GridPoint(49, 49));
+		SU.getDataCollector().moveTo(new GridPoint(Constants.GRID_WIDTH - 1, Constants.GRID_HEIGHT - 1));
 	}
 	
 	private ContinuousSpace<Object> createContinuousSpace(final Context<Object> context) {
@@ -128,7 +135,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 				createContinuousSpace( 	Constants.ID_SPACE, context,
 										new RandomCartesianAdder<Object>(),
 										new repast.simphony.space.continuous.BouncyBorders(),
-										50, 50);
+										Constants.GRID_WIDTH, Constants.GRID_HEIGHT);
 		return space;
 	}
 	
@@ -139,7 +146,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 										new GridBuilderParameters<Object>(
 										new repast.simphony.space.grid.BouncyBorders(),
 										new SimpleGridAdder<Object>(), true,
-										50, 50));
+										Constants.GRID_WIDTH, Constants.GRID_HEIGHT));
 		return grid;
 	}
 	

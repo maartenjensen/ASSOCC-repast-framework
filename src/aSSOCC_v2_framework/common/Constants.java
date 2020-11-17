@@ -10,6 +10,8 @@ public final class Constants {
 	public static final String ID_GRID = "grid";
 	
 	public static final int GRID_CELL_SIZE = 15;
+	public static final int GRID_WIDTH  = 100;
+	public static final int GRID_HEIGHT = 50;
 	
 	// Simulation specific
 	public static final float PROB_GO_TO_GROCERY = 0.1f;

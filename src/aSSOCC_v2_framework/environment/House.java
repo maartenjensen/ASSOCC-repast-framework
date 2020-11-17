@@ -1,6 +1,5 @@
 package aSSOCC_v2_framework.environment;
 
-import aSSOCC_v2_framework.preprototype.ContextLocation;
 import repast.simphony.space.grid.GridPoint;
 
 public class House extends GatheringPoint {

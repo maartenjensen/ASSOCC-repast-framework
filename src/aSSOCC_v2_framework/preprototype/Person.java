@@ -80,7 +80,7 @@ public class Person {
 		nextGp = null;
 
 		// Decision part
-		myContext.updateContext( currentGp.getContextLocation(), ContextCorona.getCoronaContext(RepastParam.getCoronaExists(), RepastParam.getCoronaRiskHigh()) );
+		//myContext.updateContext( currentGp.getContextLocation(), ContextCorona.getCoronaContext(RepastParam.getCoronaExists(), RepastParam.getCoronaRiskHigh()) );
 		Logger.logAgent(id, "Moved to context:" + myContext.getCurrentContext().toString());
 		
 		Action chosenAction = myDecisionMaker.makeDecision(getPossibleActions(), myContext.getCurrentContextFamiliarity(), myContext.getCurrentContextMostFrequentAction(), getPreferedActionOfOthers());
@@ -93,13 +93,13 @@ public class Person {
 		}
 		myContext.updateActionFrequency(chosenAction);
 		
-		if ( currentGp.getContextLocation() == ContextLocation.HOME ) {
-			stay = Constants.TICKS_STAY_HOME;
-		}
-		else {
+		//if ( currentGp.getContextLocation() == ContextLocation.HOME ) {
+		//	stay = Constants.TICKS_STAY_HOME;
+		//}
+		//else {
 			stay = Constants.TICKS_STAY_GROCERY;
 		
-		}
+		//}
 	}
 	
 	/**
@@ -108,24 +108,24 @@ public class Person {
 	public void stepGoTo() {
 		
 		// Go home when the shop closed
-		if (currentGp.getContextLocation() == ContextLocation.SHOP) {
-			if (!currentGp.isOpen()) {
-				nextGp = myGatheringPoints.get(ContextLocation.HOME);
-				moveTo(new GridPoint(RandomHelper.nextIntFromTo(14, 17), RandomHelper.nextIntFromTo(3, 44)));
-				return ;
-			}
-		}
+		//if (currentGp.getContextLocation() == ContextLocation.SHOP) {
+		//	if (!currentGp.isOpen()) {
+		//		nextGp = myGatheringPoints.get(ContextLocation.HOME);
+		//		moveTo(new GridPoint(RandomHelper.nextIntFromTo(14, 17), RandomHelper.nextIntFromTo(3, 44)));
+		//		return ;
+		//	}
+		//}
 		
 		if (stay > 0) {
 			stay -= 1;
 			return ;
 		}
 		
-		if (currentGp.getContextLocation() == ContextLocation.SHOP) {
+		/*if (currentGp.getContextLocation() == ContextLocation.SHOP) {
 			nextGp = myGatheringPoints.get(ContextLocation.HOME);
 			moveTo(new GridPoint(RandomHelper.nextIntFromTo(14, 17), RandomHelper.nextIntFromTo(3, 44)));
 		}
-		else if (wantsToGoToShop || SU.getProbTrue(Constants.PROB_GO_TO_GROCERY)) {
+		else if (wantsToGoToShop || SU.getProbTrue(Constants.PROB_GO_TO_GROCERY)) {*/
 			wantsToGoToShop = true;
 			
 			for(Shop shop : SU.getObjectsAllRandom(Shop.class)) {
@@ -136,7 +136,7 @@ public class Person {
 					break;
 				}
 			}			
-		}
+		//}
 	}
 
 	/**

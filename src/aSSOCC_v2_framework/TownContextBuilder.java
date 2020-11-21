@@ -9,6 +9,7 @@ import aSSOCC_v2_framework.environment.GatheringPoint;
 import aSSOCC_v2_framework.environment.House;
 import aSSOCC_v2_framework.environment.Shop;
 import aSSOCC_v2_framework.environment.Workplace;
+import aSSOCC_v2_framework.preprototype.ContextStepType;
 import aSSOCC_v2_framework.prototype1.Person1;
 import repast.simphony.context.Context;
 import repast.simphony.context.space.continuous.ContinuousSpaceFactoryFinder;
@@ -57,8 +58,9 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 	 */
 	@ScheduledMethod(start = 1, interval = 1, priority = 0)
 	public void mainStep() {
-		
+				
 		SU.getDataCollector().resetTemporaryVariables();
+		SU.setStepType(ContextStepType.INSIDE);
 		
 		double tick = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
 		Logger.logMain("-------------------------- [ Step " + tick + ": " + SU.getDayAndTime() + " : social distance ] --------------------------");
@@ -75,6 +77,8 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 	public void smallSteps() {
 		
 		double tick = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		SU.setStepType(ContextStepType.TRANSITION);
+		
 		Logger.logMain("-------------------------- [ Step " + tick + ": " + SU.getDayAndTime() + " : move to ] --------------------------");
 		
 		SU.getObjectsAllRandom(Shop.class).forEach(a -> a.step());

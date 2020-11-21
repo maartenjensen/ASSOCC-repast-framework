@@ -1351,3 +1351,47 @@ Caused by: java.lang.NullPointerException
 	at java.util.ArrayList.forEach(Unknown Source)
 	at aSSOCC_v2_framework.TownContextBuilder.smallSteps(TownContextBuilder.java:81)
 	... 10 more
+FATAL [Thread-7] 2020-11-19 14:11:58,267 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (0.5)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at aSSOCC_v2_framework.TownContextBuilder$$FastClassByCGLIB$$f64555a0.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.NullPointerException
+	at aSSOCC_v2_framework.prototype1.Person1.stepTransfer(Person1.java:63)
+	at aSSOCC_v2_framework.TownContextBuilder.lambda$3(TownContextBuilder.java:85)
+	at java.util.ArrayList.forEach(Unknown Source)
+	at aSSOCC_v2_framework.TownContextBuilder.smallSteps(TownContextBuilder.java:85)
+	... 10 more
+FATAL [Thread-8] 2020-11-19 14:12:26,477 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (0.5)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at aSSOCC_v2_framework.TownContextBuilder$$FastClassByCGLIB$$f64555a0.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.NullPointerException
+	at aSSOCC_v2_framework.prototype1.Person1.stepTransfer(Person1.java:63)
+	at aSSOCC_v2_framework.TownContextBuilder.lambda$3(TownContextBuilder.java:85)
+	at java.util.ArrayList.forEach(Unknown Source)
+	at aSSOCC_v2_framework.TownContextBuilder.smallSteps(TownContextBuilder.java:85)
+	... 10 more

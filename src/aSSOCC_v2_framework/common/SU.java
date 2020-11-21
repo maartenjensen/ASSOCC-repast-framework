@@ -5,9 +5,10 @@ import java.util.HashMap;
 import java.util.Random;
 
 import aSSOCC_v2_framework.DataCollector;
+import aSSOCC_v2_framework.agents.Person;
 import aSSOCC_v2_framework.environment.DayPart;
 import aSSOCC_v2_framework.environment.GatheringPoint;
-import aSSOCC_v2_framework.agents.Person;
+import aSSOCC_v2_framework.preprototype.ContextStepType;
 import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
@@ -33,6 +34,8 @@ public final class SU {
 	private static HashMap<Integer, ArrayList<Person>> peopleAtLocations = new HashMap<Integer, ArrayList<Person>>();
 	
 	private static DataCollector dataCollector = null;
+	private static ContextStepType contextStepType = ContextStepType.NONE;
+	
 	
 	public static void setDataCollector(DataCollector dataCollector) {
 		SU.dataCollector = dataCollector;
@@ -248,6 +251,22 @@ public final class SU {
 		}
 		return personList;
 	}	
+	
+	/**
+	 * Set the step type
+	 */
+	
+	public static void setStepType(ContextStepType contextStepType) {
+		SU.contextStepType = contextStepType;
+	}
+	
+	/**
+	 * Return the step type
+	 * @return
+	 */
+	public static ContextStepType getStepType() {
+		return contextStepType;
+	}
 	
 	/**
 	 * The part of the day first rounded up as for example tick 0.5 should be morning movement, while tick 1 should be the morning then.

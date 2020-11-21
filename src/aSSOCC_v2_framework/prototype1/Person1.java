@@ -11,7 +11,7 @@ public class Person1 extends Person {
 
 	protected int food;
 	
-	HashMap<String, Context> myKnownContexts;
+	HashMap<String, Context> myKnownContexts = new HashMap<String, Context>(); 
 	
 	public Person1(int id) {
 		super(id);
@@ -19,14 +19,13 @@ public class Person1 extends Person {
 		food = 100;
 	}
 
-	
 	public Context getCurrentContext() {
 		
-		Logger.logMain("test" + currentGp.getContextLocation().name());
-		Logger.logMain("daypart"+SU.getDayPart().name());
+		Logger.logMain("test " + currentGp.getContextLocation().name());
+		Logger.logMain("daypart " + SU.getDayPart().name());
 		
 		// Get physical context
-		Context minimalContext = new Context(currentGp.getContextLocation(), SU.getDayPart());
+		Context minimalContext = new Context(currentGp.getContextLocation(), SU.getDayPart(), SU.getStepType());
 		// Update needs
 		Logger.logMain(minimalContext.toString());
 		Needs salientNeed = getSalientNeed();
@@ -61,9 +60,24 @@ public class Person1 extends Person {
 	public void stepTransfer() {
 		
 		Context currentContext = getCurrentContext();
+		if (myKnownContexts.containsKey(currentContext.toString())) {
+			Logger.logMain("The context is known");
+			Context contextToDealWith = myKnownContexts.get(currentContext.toString());
+		}
+		else {
+			Logger.logMain("The context is not known");
+			myKnownContexts.put(currentContext.toString(), currentContext);
+		}
+		Context contextInMemory = myKnownContexts.get(currentContext.toString());
+		
+		//Check familiarity
+		
+		//Check succesfullness
 	}
 	
 	public void stepStay() {
+		
+		Context currentContext = getCurrentContext();
 		
 		food -= 5;
 	}

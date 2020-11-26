@@ -4,19 +4,19 @@ import java.awt.Color;
 import java.awt.Font;
 
 import aSSOCC_v2_framework.common.Constants;
-import aSSOCC_v2_framework.environment.GatheringPoint;
+import aSSOCC_v2_framework.environment.Location;
 import repast.simphony.visualizationOGL2D.DefaultStyleOGL2D;
 import saf.v3d.scene.Position;
 import saf.v3d.scene.VSpatial;
 
-public class GatheringPointStyleOGL2D extends DefaultStyleOGL2D {
+public class LocationStyleOGL2D extends DefaultStyleOGL2D {
 
 	@Override
 	public VSpatial getVSpatial(Object agent, VSpatial spatial) {
 		
-		if (agent instanceof GatheringPoint) {
+		if (agent instanceof Location) {
 			
-			GatheringPoint gatheringPoint = (GatheringPoint) agent;
+			Location gatheringPoint = (Location) agent;
 			return shapeFactory.createRectangle(Constants.GRID_CELL_SIZE * gatheringPoint.getWidth(), Constants.GRID_CELL_SIZE * gatheringPoint.getHeight());
 		}
 	    return shapeFactory.createRectangle(Constants.GRID_CELL_SIZE, Constants.GRID_CELL_SIZE);
@@ -24,8 +24,8 @@ public class GatheringPointStyleOGL2D extends DefaultStyleOGL2D {
 
 	@Override
 	public Color getColor(final Object object) {
-		if (object instanceof GatheringPoint) {
-			GatheringPoint gp = (GatheringPoint) object;
+		if (object instanceof Location) {
+			Location gp = (Location) object;
 			if (gp.isOpen())
 				return new Color(0xFF, 0xF4, 0xD1);
 			else
@@ -37,8 +37,8 @@ public class GatheringPointStyleOGL2D extends DefaultStyleOGL2D {
 	@Override
 	public String getLabel(Object object) {
 
-		if (object instanceof GatheringPoint) {
-			final GatheringPoint gp = (GatheringPoint) object;
+		if (object instanceof Location) {
+			final Location gp = (Location) object;
 			return gp.getLabel();
 		}
 		

@@ -5,7 +5,7 @@ import aSSOCC_v2_framework.common.SU;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.space.grid.GridPoint;
 
-public class GatheringPoint {
+public class Location {
 	
 	protected int id;
 	protected String name;
@@ -15,7 +15,7 @@ public class GatheringPoint {
 	protected boolean open;
 	protected ContextLocation contextLocaction;
 	
-	protected GatheringPoint(int id, String name, GridPoint location, int width, int height, ContextLocation contextLocaction) {
+	protected Location(int id, String name, GridPoint location, int width, int height, ContextLocation contextLocaction) {
 		this.id = id;
 		this.name = name;
 		this.width = width;

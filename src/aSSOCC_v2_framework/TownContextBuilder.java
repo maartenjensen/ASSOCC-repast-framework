@@ -5,11 +5,11 @@ import aSSOCC_v2_framework.common.Constants;
 import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.common.SU;
 import aSSOCC_v2_framework.environment.ContextLocation;
-import aSSOCC_v2_framework.environment.GatheringPoint;
+import aSSOCC_v2_framework.environment.ContextStepType;
+import aSSOCC_v2_framework.environment.Location;
 import aSSOCC_v2_framework.environment.House;
 import aSSOCC_v2_framework.environment.Shop;
 import aSSOCC_v2_framework.environment.Workplace;
-import aSSOCC_v2_framework.preprototype.ContextStepType;
 import aSSOCC_v2_framework.prototype1.Person1;
 import repast.simphony.context.Context;
 import repast.simphony.context.space.continuous.ContinuousSpaceFactoryFinder;
@@ -128,7 +128,7 @@ public class TownContextBuilder implements ContextBuilder<Object> {
 	 */
 	private void moveGatheringPoints() {
 		
-		SU.getObjectsAll(GatheringPoint.class).forEach(g -> g.moveTo(g.getLocation()));
+		SU.getObjectsAll(Location.class).forEach(g -> g.moveTo(g.getLocation()));
 		SU.getObjectsAll(Person.class).forEach(p -> p.moveToGatheringPoint(ContextLocation.HOME));
 		SU.getDataCollector().moveTo(new GridPoint(Constants.GRID_WIDTH - 1, Constants.GRID_HEIGHT - 1));
 	}

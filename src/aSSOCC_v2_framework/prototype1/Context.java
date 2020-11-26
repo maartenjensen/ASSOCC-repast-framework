@@ -3,8 +3,8 @@ package aSSOCC_v2_framework.prototype1;
 import java.util.HashMap;
 
 import aSSOCC_v2_framework.environment.ContextLocation;
+import aSSOCC_v2_framework.environment.ContextStepType;
 import aSSOCC_v2_framework.environment.DayPart;
-import aSSOCC_v2_framework.preprototype.ContextStepType;
 
 public class Context {
 

@@ -7,7 +7,7 @@ import aSSOCC_v2_framework.common.Constants;
 import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.common.RepastParam;
 import aSSOCC_v2_framework.common.SU;
-import aSSOCC_v2_framework.environment.GatheringPoint;
+import aSSOCC_v2_framework.environment.Location;
 import aSSOCC_v2_framework.environment.House;
 import aSSOCC_v2_framework.environment.Shop;
 import aSSOCC_v2_framework.preprototype.actions.Action;
@@ -23,9 +23,9 @@ public class Person {
 	private boolean sick;
 	private boolean socialDistancing;
 	
-	private HashMap<ContextLocation, GatheringPoint> myGatheringPoints = new HashMap<ContextLocation, GatheringPoint>();
-	private GatheringPoint currentGp;
-	private GatheringPoint nextGp;
+	private HashMap<ContextLocation, Location> myGatheringPoints = new HashMap<ContextLocation, Location>();
+	private Location currentGp;
+	private Location nextGp;
 	
 	private AgentContext myContext;
 	private AgentDecisionMaking myDecisionMaker;
@@ -198,13 +198,13 @@ public class Person {
 		
 		//GridPoint gpLocation = myGatheringPoints.get(gpName).getRandomLocationOnGP();
 		//moveTo(gpLocation);
-		GatheringPoint gpReference = myGatheringPoints.get(gpName);
+		Location gpReference = myGatheringPoints.get(gpName);
 		//SU.moveToGp(this, gpReference, currentGp);
 		
 		currentGp = gpReference;
 	}
 	
-	public void moveToGatheringPoint(GatheringPoint gpReference) {
+	public void moveToGatheringPoint(Location gpReference) {
 		if (gpReference == null) {
 			Logger.logError("Error in Person " + id + " gp is invalid:'" + gpReference);
 		}
@@ -215,6 +215,7 @@ public class Person {
 		
 		currentGp = gpReference;
 	}
+	
 	//Only use when moving to spots inbetween gatheringpoints /Emil
 	public void moveTo(GridPoint point) {
 		if (!SU.getGrid().moveTo(this, point.getX(), point.getY())) {

@@ -4,7 +4,7 @@ import aSSOCC_v2_framework.common.Logger;
 import aSSOCC_v2_framework.common.SU;
 import repast.simphony.space.grid.GridPoint;
 
-public class Shop extends GatheringPoint {
+public class Shop extends Location {
 	
 	public Shop(int id, GridPoint location, int width, int height) {
 		super(id, "Shop", location, width, height, ContextLocation.SHOP);	

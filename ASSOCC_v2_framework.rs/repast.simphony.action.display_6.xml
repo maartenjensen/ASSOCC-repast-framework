@@ -11,8 +11,8 @@
       <string>aSSOCC_v2_framework.visual.PersonStyleOGL2D</string>
     </entry>
     <entry>
-      <string>aSSOCC_v2_framework.environment.GatheringPoint</string>
-      <string>aSSOCC_v2_framework.visual.GatheringPointStyleOGL2D</string>
+      <string>aSSOCC_v2_framework.environment.Location</string>
+      <string>aSSOCC_v2_framework.visual.LocationStyleOGL2D</string>
     </entry>
   </styles>
   <editedStyles>
@@ -25,7 +25,7 @@
       <null/>
     </entry>
     <entry>
-      <string>aSSOCC_v2_framework.environment.GatheringPoint</string>
+      <string>aSSOCC_v2_framework.environment.Location</string>
       <null/>
     </entry>
   </editedStyles>
@@ -39,7 +39,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-1351848163</hashCode>
+    <hashCode>-147099839</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>grid</layoutProjection>
@@ -47,15 +47,15 @@
   <layerOrder>
     <entry>
       <string>aSSOCC_v2_framework.DataCollector</string>
-      <int>0</int>
+      <int>1</int>
     </entry>
     <entry>
       <string>aSSOCC_v2_framework.agents.Person</string>
       <int>2</int>
     </entry>
     <entry>
-      <string>aSSOCC_v2_framework.environment.GatheringPoint</string>
-      <int>1</int>
+      <string>aSSOCC_v2_framework.environment.Location</string>
+      <int>0</int>
     </entry>
   </layerOrder>
   <projections>

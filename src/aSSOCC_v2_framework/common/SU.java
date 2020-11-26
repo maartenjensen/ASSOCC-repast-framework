@@ -6,9 +6,9 @@ import java.util.Random;
 
 import aSSOCC_v2_framework.DataCollector;
 import aSSOCC_v2_framework.agents.Person;
+import aSSOCC_v2_framework.environment.ContextStepType;
 import aSSOCC_v2_framework.environment.DayPart;
-import aSSOCC_v2_framework.environment.GatheringPoint;
-import aSSOCC_v2_framework.preprototype.ContextStepType;
+import aSSOCC_v2_framework.environment.Location;
 import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
@@ -310,7 +310,7 @@ public final class SU {
 	 * @param gpId
 	 * @author Emil
 	 */
-	public static void moveToGp(Person person, GatheringPoint gpReference, GatheringPoint oldLocation) {
+	public static void moveToGp(Person person, Location gpReference, Location oldLocation) {
 		if(oldLocation != null && peopleAtLocations.containsKey(oldLocation.getId())){
 			peopleAtLocations.get(oldLocation.getId()).remove(person);
 		}

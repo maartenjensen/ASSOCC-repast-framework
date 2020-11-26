@@ -1,4 +1,4 @@
-package aSSOCC_v2_framework.preprototype;
+package aSSOCC_v2_framework.environment;
 
 public enum ContextStepType {
 

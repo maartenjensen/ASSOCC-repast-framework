@@ -139,7 +139,12 @@ public class Person1 extends Person {
 		
 		Context currentContext = getCurrentContext();
 		
-		food -= 5;
+		if (currentLoc.getContextLocation() == ContextLocation.SHOP) {
+			food = 100;
+		}
+		else {
+			food -= 5;
+		}
 	}
 	
 	/**
@@ -163,6 +168,10 @@ public class Person1 extends Person {
 		moveTo(locLocation);
 		currentLoc = location;
 		nextLoc = null;
+	}
+	
+	public int getFood() {
+		return food;
 	}
 	
 }

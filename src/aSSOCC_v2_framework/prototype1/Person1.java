@@ -45,10 +45,7 @@ public class Person1 extends Person {
 	}
 
 	public Context getCurrentContext() {
-		
-		Logger.logMain("test " + currentLoc.getContextLocation().name());
-		Logger.logMain("daypart " + SU.getDayPart().name());
-		
+			
 		// Get physical context
 		Context minimalContext = new Context(currentLoc.getContextLocation(), SU.getDayPart(), SU.getStepType());
 		// Update needs
@@ -56,9 +53,6 @@ public class Person1 extends Person {
 		Needs salientNeed = getSalientNeed();
 		if (salientNeed != Needs.NONE) {
 			minimalContext.addNeed(salientNeed); }
-		
-		// Look for existing contexts
-		Logger.logMain(minimalContext.toString());
 		
 		return minimalContext;
 	}
@@ -86,6 +80,8 @@ public class Person1 extends Person {
 		
 		// Check whether the context is known, if not add the context
 		Context currentContext = getCurrentContext();
+		Logger.logMain(currentContext.toString());
+		
 		if (myKnownContexts.containsKey(currentContext.toString())) {
 			Logger.logMain("The context is known");
 		}
@@ -97,12 +93,30 @@ public class Person1 extends Person {
 		// Retrieve the context from memory
 		Context contextInMemory = myKnownContexts.get(currentContext.toString());
 		
-		// Deliberate
-		Action chosenAction = decisionDeliberate(contextInMemory);
+		// Meta selector
+		Action chosenAction = null;
+		if (contextInMemory.getActionFamiliarity() == 1) {
+			// Repetition
+			chosenAction = contextInMemory.getActionRepetition();
+			temp_text = "Repetition selected ";
+		}
+		else {
+			// Deliberate
+			chosenAction = decisionDeliberate(contextInMemory);
+		}
 		
-		// Select an action
-		Logger.logAgent(id, temp_text + " and chose action:" + chosenAction.name());
-		chosenAction.performAction(this);
+		// Check if the chosenAction is not null
+		if (chosenAction != null) {
+			// Select an action
+			Logger.logAgent(id, temp_text + " and chose action:" + chosenAction.name());
+			chosenAction.performAction(this);
+			contextInMemory.updateContextWithAction(chosenAction);
+			Logger.logAgent(id, myKnownContexts.get(currentContext.toString()).actionStatus());
+			//myKnownContexts.get(c)
+		}
+		else {
+			Logger.logError("No chosen action! chosenAction == null");
+		}
 	}
 	
 	public Action decisionDeliberate(Context currentContext) {
@@ -110,7 +124,7 @@ public class Person1 extends Person {
 		if (SU.getStepType() == ContextStepType.TRANSITION) {
 
 			Needs salientNeed = getSalientNeed();
-			temp_text = "Deliberation selected on type " + SU.getStepType() + ", need" + salientNeed.name();
+			temp_text = "Deliberation selected on type " + SU.getStepType() + ", need " + salientNeed.name();
 			switch (salientNeed) {
 			case FOOD:
 				return Action.MOVE_SHOP;
@@ -138,6 +152,7 @@ public class Person1 extends Person {
 		}
 		
 		Context currentContext = getCurrentContext();
+		Logger.logMain(currentContext.toString());
 		
 		if (currentLoc.getContextLocation() == ContextLocation.SHOP) {
 			food = 100;
